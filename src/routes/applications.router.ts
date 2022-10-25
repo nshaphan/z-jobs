@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { createApplication, getApplications } from '../controllers/products.controller';
+import { createApplication, getApplications } from '../controllers/applications.controller';
 import applicationSchema from '../validations/applications.schema';
 
 const productRouter: Router = express.Router();
