@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "Application" ALTER COLUMN "coverLetter" DROP NOT NULL,
+ALTER COLUMN "linkedIn" DROP NOT NULL,
+ALTER COLUMN "github" DROP NOT NULL,
+ALTER COLUMN "portfolio" DROP NOT NULL,
+ALTER COLUMN "position" DROP NOT NULL,
+ALTER COLUMN "position" SET DEFAULT E'Software Engineer',
+ALTER COLUMN "status" DROP NOT NULL;
