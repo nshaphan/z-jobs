@@ -1,11 +1,11 @@
 import express, { Router } from 'express';
-import { createApplication, getApplications } from '../controllers/applications.controller';
-import applicationSchema from '../validations/applications.schema';
+import { createApplication, getApplications, updateApplicationStatus } from '../controllers/applications.controller';
 
-const productRouter: Router = express.Router();
+const applicationRouter: Router = express.Router();
 
-productRouter
-  .post('/applications', applicationSchema, createApplication)
+applicationRouter
+  .post('/applications', createApplication)
+  .put('/applications/:id/status', updateApplicationStatus)
   .get('/applications', getApplications);
 
-export default productRouter;
+export default applicationRouter;

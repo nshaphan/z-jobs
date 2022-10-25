@@ -8,6 +8,8 @@ interface IApplicationInput {
     coverLetter: string,
 }
 
+const ITEMS_PER_PAGE = 10;
+
 const prisma = new PrismaClient();
 
 const addApplication = async (input: IApplicationInput) => {
@@ -34,9 +36,29 @@ const findApplicationById = async (id: number) => {
   return application;
 };
 
-const findAllApplications = async () => {
-  const applications = await prisma.application.findMany();
-  return applications;
+const findAllApplications = async (page: number) => {
+  let offset = 0;
+  if (page > 1) {
+    offset = (page - 1) * ITEMS_PER_PAGE;
+  }
+
+  const total = await prisma.application.count();
+  const pages = Math.ceil(total / ITEMS_PER_PAGE);
+
+  const applications = await prisma.application.findMany({
+    skip: offset,
+    take: ITEMS_PER_PAGE,
+    orderBy: {
+      name: 'asc',
+    },
+  });
+
+  return {
+    applications,
+    total,
+    pages,
+    page,
+  };
 };
 
 const changeApplicationStatus = async (id: number, status: Status) => {
