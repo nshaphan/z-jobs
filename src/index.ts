@@ -20,7 +20,9 @@ cloudinary.config({
 const app: Express = express();
 app.use(urlencoded({ extended: false }));
 app.use(json());
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://z-jobs.herokuapp.com'],
+}));
 
 const port = process.env.PORT || 5000;
 
