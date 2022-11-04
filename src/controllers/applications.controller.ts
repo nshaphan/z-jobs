@@ -35,11 +35,17 @@ const createApplication = async (
     return res.status(400).json({ errors: errors.array(), success: false });
   }
 
-  const upload = await cloudinary.uploader.upload(req.body.resume, {
-    folder: 'resumes',
-  });
+  let resumeUrl = '';
+  try {
+    const upload = await cloudinary.uploader.upload(req.body.resume, {
+      folder: 'resumes',
+    });
+    resumeUrl = upload.secure_url;
+  } catch (error) {
+    resumeUrl = '';
+  }
 
-  const application = await addApplication({ ...req.body, resume: upload.secure_url });
+  const application = await addApplication({ ...req.body, resume: resumeUrl });
 
   return res.status(200).json({
     success: true,

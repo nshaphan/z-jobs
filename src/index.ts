@@ -18,8 +18,8 @@ cloudinary.config({
 });
 
 const app: Express = express();
-app.use(urlencoded({ extended: false }));
-app.use(json());
+app.use(urlencoded({ extended: false, limit: '50mb' }));
+app.use(json({ limit: '50mb' }));
 app.use(cors({
   origin: ['http://localhost:3000', 'https://z-jobs.herokuapp.com'],
 }));
